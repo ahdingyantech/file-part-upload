@@ -14,7 +14,7 @@ module FilePartUpload
       if self.saved_file_name.present?
         Attach.new(
                     :instance => self, 
-                    :name => self.saved_file_name, 
+                    :name => self.try(:recode_file_name).present? ? self.recode_file_name : self.saved_file_name,
                     :size => self.attach_file_size
                   )
       end
